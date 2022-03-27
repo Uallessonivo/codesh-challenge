@@ -7,9 +7,10 @@
 ## Stack
 
 ```
-- Prisma
+- Mongoose
 - Nest Js
 - Typescript
+- MongoDB
 ```
 
 ## Installation
