@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Article } from './article';
@@ -10,15 +10,27 @@ export class ArticleService {
   ) {}
 
   async getAll(page: number, limit: number) {
-    return await this.articleModel
+    const articles = await this.articleModel
       .find()
       .skip(page * limit)
       .limit(limit)
       .exec();
+
+    if (articles.length == 0) {
+      throw new HttpException('No articles found', 404);
+    }
+
+    return articles;
   }
 
   async getById(id: string) {
-    return await this.articleModel.findById(id).exec();
+    const article = await this.articleModel.findOne({ _id: id }).exec();
+
+    if (article == null) {
+      throw new HttpException('No article found', 404);
+    }
+
+    return article;
   }
 
   async create(article: Article) {
@@ -27,11 +39,34 @@ export class ArticleService {
   }
 
   async update(id: string, article: Article) {
-    await this.articleModel.updateOne({ _id: id }, article).exec();
+    const data = await this.articleModel.findOne({ _id: id }).exec();
+
+    if (data == null) {
+      throw new HttpException('No article found', 404);
+    }
+
+    await this.articleModel.updateOne({ _id: data.id }, article).exec();
+
     return this.getById(id);
   }
 
   async delete(id: string) {
-    return await this.articleModel.deleteOne({ _id: id }).exec();
+    const data = await this.articleModel.findOne({ _id: id }).exec();
+
+    if (data == null) {
+      throw new HttpException('No article found', 404);
+    }
+
+    return await this.articleModel.deleteOne({ _id: data.id }).exec();
+  }
+
+  async destroyDatabase(token: string) {
+    if (token == process.env.TOKEN) {
+      await this.articleModel.deleteMany({}).exec();
+    } else
+      throw new HttpException(
+        'You are not authorized to delete the database',
+        401,
+      );
   }
 }

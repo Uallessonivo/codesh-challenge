@@ -6,11 +6,9 @@ import {
   Param,
   Post,
   Put,
-  Res,
 } from '@nestjs/common';
 import { Article } from './article';
 import { ArticleService } from './article.service';
-import { Request, Response } from 'express';
 
 @Controller('articles')
 export class ArticleController {
@@ -42,5 +40,10 @@ export class ArticleController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     return await this.articleService.delete(id);
+  }
+
+  @Delete()
+  async destroyDatabase(@Body('destroystring') token: string) {
+    return await this.articleService.destroyDatabase(token);
   }
 }
