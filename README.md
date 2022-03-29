@@ -10,6 +10,7 @@
 
 Este é um desafio proposto na plataforma da Codesh, achei interessante e desafiador. <br/>
 Decidir usar o framework Nest.Js para resolver o desafio, apesar de ser a primeira vez que o uso. <br/>
+Gostaria muito de realizar os desafios opcionais, porém no momento não disponho de mais tempo. <br/>
 
 ## Stack
 
@@ -19,6 +20,7 @@ Decidir usar o framework Nest.Js para resolver o desafio, apesar de ser a primei
 - Typescript
 - MongoDB
 - HttpService from Axios
+- Task Scheduling from Nestjs
 ```
 
 ## Installation
@@ -38,17 +40,4 @@ $ yarn start:dev
 
 # production mode
 $ yarn start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ yarn test
-
-# e2e tests
-$ yarn test:e2e
-
-# test coverage
-$ yarn test:cov
 ```

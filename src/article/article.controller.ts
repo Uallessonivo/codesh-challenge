@@ -33,7 +33,10 @@ export class ArticleController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, article: Article): Promise<Article> {
+  async update(
+    @Param('id') id: string,
+    @Body() article: Article,
+  ): Promise<Article> {
     return await this.articleService.update(id, article);
   }
 

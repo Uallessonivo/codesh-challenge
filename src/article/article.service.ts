@@ -45,8 +45,7 @@ export class ArticleService {
       throw new HttpException('No article found', 404);
     }
 
-    await this.articleModel.updateOne({ _id: data.id }, article).exec();
-
+    await this.articleModel.updateOne({ _id: id }, article).exec();
     return this.getById(id);
   }
 

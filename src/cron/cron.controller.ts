@@ -1,25 +1,32 @@
 import { HttpService } from '@nestjs/axios';
 import { Controller } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
-import { map } from 'rxjs';
-import { ArticleService } from 'src/article/article.service';
+import { lastValueFrom, map } from 'rxjs';
+import { CronService } from 'src/cron/cron.service';
 
 @Controller()
 export class CronController {
   constructor(
-    private readonly httpService: HttpService,
-    private readonly articleService: ArticleService,
+    private readonly http: HttpService,
+    private cronService: CronService,
   ) {}
 
   @Cron('0 0 9 1/1 * ? *')
   async cronJob() {
-    return this.httpService
-      .get('https://api.spaceflightnewsapi.net/v3/articles')
-      .pipe(
-        map((response) => response.data.Results),
-        map((results) =>
-          results.map((result: any) => this.articleService.create(result)),
-        ),
-      );
+    const obj = await this.getEndpoint(
+      'https://api.spaceflightnewsapi.net/v3/articles',
+    );
+
+    this.cronService.create(obj);
+  }
+
+  private getEndpoint(url: string): Promise<any> {
+    return lastValueFrom(
+      this.http.get<any>(url).pipe(
+        map((res) => {
+          return res.data;
+        }),
+      ),
+    );
   }
 }
