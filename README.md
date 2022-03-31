@@ -12,6 +12,10 @@ Este é um desafio proposto na plataforma da Codesh, achei interessante e desafi
 Decidir usar o framework Nest.Js para resolver o desafio, apesar de ser a primeira vez que o uso. <br/>
 Gostaria muito de realizar os desafios opcionais, porém no momento não disponho de mais tempo. <br/>
 
+## Requisitos do desafio.
+
+https://lab.coodesh.com/public-challenges/back-end-challenge-2021
+
 ## Stack
 
 ```
