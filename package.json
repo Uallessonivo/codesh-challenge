@@ -1,8 +1,8 @@
 {
   "name": "nest-app",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Codesh Challenge",
+  "author": "Uallesson Nunes ivo",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -72,6 +72,9 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/$1"
+    },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }

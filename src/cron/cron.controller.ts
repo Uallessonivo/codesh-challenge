@@ -11,8 +11,9 @@ export class CronController {
     private cronService: CronService,
   ) {}
 
-  @Cron('0 0 9 1/1 * ? *')
+  @Cron('0 0 9 1/1 * * *')
   async cronJob() {
+    console.log('Cron job running....');
     const obj = await this.getEndpoint(
       'https://api.spaceflightnewsapi.net/v3/articles',
     );
